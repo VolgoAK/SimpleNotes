@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/note_holder_height"
+    android:layout_margin="@dimen/cards_margin"
+    style="@style/CardViewStyle">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?android:selectableItemBackground">
+
+        <TextView
+            android:id="@+id/tvNameHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/views_med_margin"
+            android:textAppearance="@style/TextTitle"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="New note" />
+
+        <TextView
+            android:id="@+id/tvDateHolder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/views_small_margin"
+            app:layout_constraintLeft_toLeftOf="@id/tvNameHolder"
+            app:layout_constraintTop_toBottomOf="@id/tvNameHolder"
+            tools:text="12.03.2001" />
+
+        <View
+            android:id="@+id/dividerNoteHolder"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/divider_gray"
+            android:layout_marginLeft="@dimen/views_small_margin"
+            android:layout_marginRight="@dimen/views_small_margin"
+            app:layout_constraintTop_toBottomOf="@id/tvDateHolder" />
+
+        <TextView
+            android:id="@+id/tvShortTextHolder"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:textAppearance="@style/TextContent"
+            android:maxLength="150"
+            android:ellipsize="end"
+            android:layout_marginLeft="@dimen/views_med_margin"
+            android:layout_marginRight="@dimen/views_med_margin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/dividerNoteHolder"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            tools:text="@string/dummy_text" />
+
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

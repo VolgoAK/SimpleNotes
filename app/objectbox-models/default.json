@@ -1,0 +1,67 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:4973572903887578478",
+      "lastPropertyId": "6:989970339765293591",
+      "name": "Note",
+      "properties": [
+        {
+          "id": "1:5564295424879367135",
+          "name": "name"
+        },
+        {
+          "id": "2:8035894463109697351",
+          "name": "text"
+        },
+        {
+          "id": "3:2688635652423087416",
+          "name": "id"
+        },
+        {
+          "id": "4:6082800059007709855",
+          "name": "date"
+        },
+        {
+          "id": "6:989970339765293591",
+          "indexId": "2:5096917145212180802",
+          "name": "notebookId"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "2:1786207590464453098",
+      "lastPropertyId": "2:6201029550767212396",
+      "name": "NoteBook",
+      "properties": [
+        {
+          "id": "1:1446376681319213147",
+          "name": "name"
+        },
+        {
+          "id": "2:6201029550767212396",
+          "name": "id"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "2:1786207590464453098",
+  "lastIndexId": "2:5096917145212180802",
+  "lastRelationId": "0:0",
+  "lastSequenceId": "0:0",
+  "modelVersion": 4,
+  "modelVersionParserMinimum": 4,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [
+    7552183508902446430
+  ],
+  "retiredPropertyUids": [
+    5927904673246483740
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}

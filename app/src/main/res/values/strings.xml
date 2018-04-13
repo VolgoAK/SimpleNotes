@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">SimpleNotes</string>
+    <string name="notes">Notes</string>
+    <string name="notebooks">Notebooks</string>
+    <string name="open_drawer">open</string>
+    <string name="close_drawer">close</string>
+
+    <string name="dummy_text" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla dolor felis
+        , tempus nec lacinia et, dignissim vel lorem. Praesent ultrices orci vitae lectus laoreet dapibus.</string>
+
+    <string name="dummy_text_long" translatable="false">Sweet candy canes marzipan halvah soufflé apple pie lemon drops pastry. Sweet roll sweet roll dragée dessert biscuit gummi bears carrot cake tiramisu. Topping jelly tootsie roll danish pie. Jelly beans tart halvah halvah chocolate cake brownie chocolate bar tootsie roll. Liquorice cheesecake sugar plum macaroon carrot cake dessert liquorice. Cotton candy powder tart macaroon marshmallow biscuit. Wafer tart sugar plum. Chocolate cake tart toffee cookie. Carrot cake donut chocolate chupa chups.
+
+Marzipan powder halvah dessert gingerbread jujubes sweet cookie. Sweet dragée halvah tootsie roll. Candy croissant icing apple pie dragée candy fruitcake danish dragée. Lemon drops pudding jujubes caramels toffee soufflé tiramisu chocolate. Toffee marzipan chocolate bar pudding chocolate cake danish chupa chups. Jelly-o fruitcake chupa chups icing danish tart cake.
+
+Chocolate cake ice cream fruitcake tootsie roll lemon drops lollipop. Cake oat cake macaroon sesame snaps cheesecake. Ice cream cake soufflé pudding pastry donut biscuit chocolate cake. Pie sesame snaps cheesecake chocolate bar cheesecake. Sesame snaps jujubes dessert brownie sesame snaps liquorice soufflé pastry halvah. Bear claw topping pie gummies tart sugar plum. Croissant lollipop jelly beans marshmallow cheesecake sweet roll brownie tiramisu icing. Cupcake sugar plum gummies. Sugar plum dessert sweet roll topping cake cake marshmallow.
+
+Soufflé sugar plum oat cake. Tart tiramisu caramels tart dragée apple pie. Fruitcake lollipop cheesecake gummies lemon drops lemon drops. Candy apple pie donut icing chocolate cake fruitcake ice cream powder cake. Jelly cupcake pastry halvah powder brownie croissant. Sesame snaps cake marzipan jelly beans chocolate bar bear claw pudding.
+
+Candy caramels jelly beans tiramisu gummi bears cheesecake chocolate bar. Tiramisu wafer sweet donut chocolate brownie apple pie marshmallow. Liquorice sesame snaps lollipop lemon drops jujubes lollipop wafer sugar plum pie. Apple pie jujubes liquorice. Halvah bonbon liquorice fruitcake. Fruitcake cotton candy caramels liquorice macaroon. Muffin lollipop jelly chocolate. Sweet bonbon jelly beans. Bear claw candy gingerbread liquorice brownie chocolate bar powder chupa chups apple pie. Apple pie ice cream candy canes macaroon chocolate cake.</string>
+</resources>
