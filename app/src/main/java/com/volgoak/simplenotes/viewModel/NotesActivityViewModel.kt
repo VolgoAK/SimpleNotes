@@ -16,6 +16,8 @@ class NotesActivityViewModel(application: Application) : AndroidViewModel(applic
     private var notebooksLiveData : LiveData<List<NoteBook>>? = null
     val commandCallBack = SingleLiveEvent<Command>()
 
+    private val titleLiveData = MutableLiveData<String>()
+
     @Inject
     lateinit var provider : NotesProvider
 
@@ -49,6 +51,12 @@ class NotesActivityViewModel(application: Application) : AndroidViewModel(applic
         }
 
         notesLiveData.value = provider.getAllNotes()*/
+    }
+
+    fun getTileLiveData() : LiveData<String> = titleLiveData
+
+    fun setTitle(title: String) {
+        titleLiveData.value = title
     }
 
     fun addNotebook(name : String) {

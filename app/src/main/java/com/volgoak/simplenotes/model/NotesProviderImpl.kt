@@ -57,6 +57,10 @@ class NotesProviderImpl(boxStore: BoxStore) : NotesProvider{
         return allNotebooksLiveData!!
     }
 
+    override fun getNotebook(id: Long): NoteBook {
+        return notebookBox.get(id)
+    }
+
     override fun insertNoteBook(noteBook: NoteBook): Long {
         return notebookBox.put(noteBook)
     }

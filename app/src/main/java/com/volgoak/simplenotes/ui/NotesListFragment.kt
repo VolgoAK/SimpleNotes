@@ -38,8 +38,18 @@ class NotesListFragment : Fragment() {
 
         notesViewModel = ViewModelProviders.of(this).get(NotesViewModel::class.java)
 
-        val id = arguments?.getLong(EXTRA_NOTEBOOK_ID)
-        if(id != null) notebookId = id
+        arguments?.getLong(EXTRA_NOTEBOOK_ID)?.let {
+            notebookId = it
+        }
+
+        if(notebookId != 0L) {
+            notesViewModel.getNotebookLiveData()
+                    .observe(this, Observer {
+                        it?.let {
+                            activityViewModel.setTitle(it.name)
+                        }
+                    })
+        }
 
         return root
     }
@@ -50,8 +60,9 @@ class NotesListFragment : Fragment() {
         val adapter = RvAdapter()
         rvNotes.adapter = adapter
 
-        notesViewModel.getNotes(notebookId).observe(this,
-                Observer { list -> adapter.setData(list)})
+        notesViewModel.getNotes(notebookId).observe(this, Observer {
+            list -> adapter.setData(list)
+        })
 
         adapter.listener = { entity : BaseEntity ->
             activityViewModel.openNote((entity as Note).id)
@@ -61,6 +72,11 @@ class NotesListFragment : Fragment() {
             val newNoteId = notesViewModel.createNewNote()
             activityViewModel.openNote(newNoteId)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        activityViewModel.setTitle( getString(R.string.notes))
     }
 
     companion object {

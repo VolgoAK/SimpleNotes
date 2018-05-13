@@ -34,6 +34,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             if(command != null) onCommand(command)
         })
 
+        activityViewModel.getTileLiveData().observe(this, Observer {
+            it?.let { toolbar.title = it }
+        })
+
         if (supportFragmentManager.findFragmentById(R.id.containerMain) == null)
             openFragment(NotesListFragment(), false)
     }

@@ -52,4 +52,9 @@ class NotebooksFragment : Fragment() {
 
         activityViewModel.getNotebooks().observe(this, Observer { list -> adapter.setData(list) })
     }
+
+    override fun onStart() {
+        super.onStart()
+        activityViewModel.setTitle(getString(R.string.notebooks))
+    }
 }

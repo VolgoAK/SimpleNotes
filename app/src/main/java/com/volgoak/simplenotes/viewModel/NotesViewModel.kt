@@ -4,6 +4,7 @@ import android.app.Application
 import android.arch.lifecycle.*
 import com.volgoak.simplenotes.App
 import com.volgoak.simplenotes.Note
+import com.volgoak.simplenotes.NoteBook
 import com.volgoak.simplenotes.model.NotesProvider
 import timber.log.Timber
 import javax.inject.Inject
@@ -16,16 +17,12 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var provider: NotesProvider
 
-    private val notesLiveData: MutableLiveData<List<Note>> = MutableLiveData()
+    private val notesLiveData = MutableLiveData<List<Note>>()
 
-    private val notesMediatorLiveData: MediatorLiveData<List<Note>> = MediatorLiveData()
+    private val notesMediatorLiveData = MediatorLiveData<List<Note>>()
     private var lastCallLiveData: LiveData<List<Note>>? = null
 
-    private val notesObserver: Observer<List<Note>> = Observer { list ->
-        Timber.d("All notes observed")
-        notesLiveData.value = list
-    }
-
+    private var notebookLiveData = MutableLiveData<NoteBook>()
     private var notebookId: Long = 0
 
     init {
@@ -44,6 +41,8 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
             lastCallLiveData = if (notebookId == 0L) {
                 provider.getAllNotes()
             } else {
+                //todo move to background thread
+                notebookLiveData.value = provider.getNotebook(notebookId)
                 provider.getNotesByNotebookId(id)
             }
 
@@ -57,6 +56,8 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
 
         return notesMediatorLiveData
     }
+
+    fun getNotebookLiveData() : LiveData<NoteBook> = notebookLiveData
 
     fun createNewNote(): Long {
         val note = Note()

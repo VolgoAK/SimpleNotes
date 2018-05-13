@@ -18,6 +18,8 @@ interface NotesProvider {
 
     fun getAllNotebooks() : LiveData<List<NoteBook>>
 
+    fun getNotebook(id : Long) : NoteBook
+
     fun insertNoteBook(noteBook: NoteBook) : Long
 
 }
