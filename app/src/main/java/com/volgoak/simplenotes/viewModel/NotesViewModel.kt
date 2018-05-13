@@ -1,13 +1,11 @@
 package com.volgoak.simplenotes.viewModel
 
 import android.app.Application
-import android.arch.lifecycle.AndroidViewModel
-import android.arch.lifecycle.LiveData
-import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.*
 import com.volgoak.simplenotes.App
 import com.volgoak.simplenotes.Note
 import com.volgoak.simplenotes.model.NotesProvider
-import io.objectbox.query.Query
+import timber.log.Timber
 import javax.inject.Inject
 
 /**
@@ -18,28 +16,49 @@ class NotesViewModel(application: Application) : AndroidViewModel(application) {
     @Inject
     lateinit var provider: NotesProvider
 
-    private val notesLiveData : MutableLiveData<List<Note>> = MutableLiveData()
+    private val notesLiveData: MutableLiveData<List<Note>> = MutableLiveData()
 
-    private var notebookId : Long = 0
+    private val notesMediatorLiveData: MediatorLiveData<List<Note>> = MediatorLiveData()
+    private var lastCallLiveData: LiveData<List<Note>>? = null
+
+    private val notesObserver: Observer<List<Note>> = Observer { list ->
+        Timber.d("All notes observed")
+        notesLiveData.value = list
+    }
+
+    private var notebookId: Long = 0
 
     init {
         (application as App).getComponent().inject(this)
     }
 
-    fun getNotes(id : Long) : LiveData<List<Note>> {
-        if(id != notebookId || notesLiveData.value == null) {
+    fun getNotes(id: Long): LiveData<List<Note>> {
+        if (id != notebookId || notesLiveData.value == null) {
+
+            //remove old sourse
+            lastCallLiveData?.let {
+                notesMediatorLiveData.removeSource(it)
+            }
+
             notebookId = id
-            if(notebookId == 0L) {
-                notesLiveData.value = provider.getAllNotes()
+            lastCallLiveData = if (notebookId == 0L) {
+                provider.getAllNotes()
             } else {
-                notesLiveData.value = provider.getNotesByNotebookId(id)
+                provider.getNotesByNotebookId(id)
+            }
+
+            lastCallLiveData?.let {
+                Timber.d("add source to mediator")
+                notesMediatorLiveData.addSource(it, {
+                   notesMediatorLiveData.value = it
+                })
             }
         }
 
-        return notesLiveData
+        return notesMediatorLiveData
     }
 
-    fun createNewNote() : Long {
+    fun createNewNote(): Long {
         val note = Note()
         note.notebook.targetId = notebookId
 

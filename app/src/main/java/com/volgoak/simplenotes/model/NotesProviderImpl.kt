@@ -1,10 +1,13 @@
 package com.volgoak.simplenotes.model
 
+import android.arch.lifecycle.LiveData
 import com.volgoak.simplenotes.Note
 import com.volgoak.simplenotes.NoteBook
+import com.volgoak.simplenotes.NoteBook_
 import com.volgoak.simplenotes.Note_
 import io.objectbox.Box
 import io.objectbox.BoxStore
+import io.objectbox.android.ObjectBoxLiveData
 import io.objectbox.query.QueryBuilder
 import timber.log.Timber
 
@@ -15,22 +18,27 @@ class NotesProviderImpl(boxStore: BoxStore) : NotesProvider{
     private val noteBox = boxStore.boxFor(Note::class.java)
     private val notebookBox = boxStore.boxFor(NoteBook::class.java)
 
-    override fun getAllNotes(): List<Note> {
-        return noteBox.all
+    private var allNotesLiveData : LiveData<List<Note>>? = null
+    private var allNotebooksLiveData : LiveData<List<NoteBook>>? = null
+
+    override fun getAllNotes(): LiveData<List<Note>> {
+        if(allNotesLiveData == null) {
+            allNotesLiveData = ObjectBoxLiveData(
+                    noteBox.query().order(Note_.date, QueryBuilder.DESCENDING).build())
+        }
+
+        return allNotesLiveData!!
     }
 
     override fun getNoteById(id: Long): Note {
         return noteBox[id]
     }
 
-    override fun getNotesByNotebookId(id: Long): List<Note> {
-        val notesList = noteBox.query()
+    override fun getNotesByNotebookId(id: Long): LiveData<List<Note>> {
+        return ObjectBoxLiveData(noteBox.query()
                 .equal(Note_.notebookId, id)
                 .order(Note_.date, QueryBuilder.DESCENDING)
-                .build().find()
-
-        Timber.d("Load notes by nb id - $id count ${notesList.size}")
-        return notesList
+                .build())
     }
 
     override fun insertNote(note: Note) : Long{
@@ -38,8 +46,15 @@ class NotesProviderImpl(boxStore: BoxStore) : NotesProvider{
         return noteBox.put(note)
     }
 
-    override fun getAllNotebooks(): List<NoteBook> {
-        return notebookBox.all
+    override fun getAllNotebooks(): LiveData<List<NoteBook>> {
+        if(allNotebooksLiveData == null) {
+            allNotebooksLiveData = ObjectBoxLiveData(
+                    notebookBox.query()
+                            .order(NoteBook_.name)
+                            .build())
+        }
+
+        return allNotebooksLiveData!!
     }
 
     override fun insertNoteBook(noteBook: NoteBook): Long {

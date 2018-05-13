@@ -46,6 +46,10 @@ class NotebooksFragment : Fragment() {
 
         rvNoteBooks.adapter = adapter
 
+        fabAddNotebook.setOnClickListener {
+            activityViewModel.addNotebook("new notebook")
+        }
+
         activityViewModel.getNotebooks().observe(this, Observer { list -> adapter.setData(list) })
     }
 }

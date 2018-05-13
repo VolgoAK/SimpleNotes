@@ -13,8 +13,7 @@ import javax.inject.Inject
  */
 class NotesActivityViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val notesLiveData = MutableLiveData<List<Note>>()
-    private val notebooksLiveData = MutableLiveData<List<NoteBook>>()
+    private var notebooksLiveData : LiveData<List<NoteBook>>? = null
     val commandCallBack = SingleLiveEvent<Command>()
 
     @Inject
@@ -24,17 +23,16 @@ class NotesActivityViewModel(application: Application) : AndroidViewModel(applic
         (application as App).getComponent().inject(this)
     }
 
-    fun getNotes() : LiveData<List<Note>> = notesLiveData
-
     fun getNotebooks() : LiveData<List<NoteBook>>{
-        if(notebooksLiveData.value == null) {
-            notebooksLiveData.value = provider.getAllNotebooks()
+        if(notebooksLiveData == null) {
+            notebooksLiveData = provider.getAllNotebooks()
         }
-        return notebooksLiveData
+
+        return notebooksLiveData!!
     }
 
     fun addFakeNotes() {
-        val list = provider.getAllNotes()
+        /*val list = provider.getAllNotes()
         if(list.isEmpty()) {
             val defNoteBook = NoteBook()
             val notebookId = provider.insertNoteBook(defNoteBook)
@@ -50,7 +48,12 @@ class NotesActivityViewModel(application: Application) : AndroidViewModel(applic
             }
         }
 
-        notesLiveData.value = provider.getAllNotes()
+        notesLiveData.value = provider.getAllNotes()*/
+    }
+
+    fun addNotebook(name : String) {
+        val noteBook = NoteBook(name = name)
+        provider.insertNoteBook(noteBook)
     }
 
     fun openNote(id : Long) {
